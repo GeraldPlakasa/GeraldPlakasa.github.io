@@ -77,6 +77,49 @@
       --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
+    /* Light Mode */
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: rgba(0,0,0,0.02);
+      --bg-card-hover: rgba(0,0,0,0.05);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --border: rgba(0,0,0,0.08);
+      --accent-glow: rgba(99,102,241,0.2);
+      --shadow-glow: 0 0 40px rgba(99,102,241,0.15);
+    }
+    
+    [data-theme="light"] body::before {
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99,102,241,0.08), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139,92,246,0.05), transparent);
+    }
+    
+    /* Theme Toggle Button */
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      margin-left: var(--space-4);
+    }
+    
+    .theme-toggle:hover {
+      color: var(--accent-light);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    
     /* ========================================
        RESET & BASE
        ======================================== */
@@ -681,6 +724,9 @@
         <li><a href="#testimonials">Recommendations</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <i class="bi bi-moon-fill"></i>
+      </button>
       <div class="mobile-toggle"><i class="bi bi-list"></i></div>
     </div>
   </nav>
@@ -1016,6 +1062,35 @@
     
     document.querySelectorAll('.skill-category, .portfolio-card, .testimonial-card').forEach(el => {
       observer.observe(el);
+    });
+    
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+    
+    // Check saved theme or system preference
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+    
+    // Apply initial theme
+    if (currentTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeIcon.className = 'bi bi-sun-fill';
+    }
+    
+    // Toggle theme on click
+    themeToggle.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        document.documentElement.removeAttribute('data-theme');
+        themeIcon.className = 'bi bi-moon-fill';
+        localStorage.setItem('portfolio-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeIcon.className = 'bi bi-sun-fill';
+        localStorage.setItem('portfolio-theme', 'light');
+      }
     });
   </script>
 </body>
