@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashen World | Gerald Plakasa</title>
+  <meta name="description" content="A living-village simulation built with Flask - manage villagers, elections, buildings, and treasury">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{--bg-primary:#0a0a0f;--bg-secondary:#12121a;--bg-card:rgba(255,255,255,0.03);--bg-card-hover:rgba(255,255,255,0.06);--text-primary:#f4f4f5;--text-secondary:#a1a1aa;--text-muted:#71717a;--accent:#6366f1;--accent-light:#818cf8;--accent-glow:rgba(99,102,241,0.4);--success:#22c55e;--border:rgba(255,255,255,0.08);--gradient-primary:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%);--font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,monospace;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;--shadow-glow:0 0 40px var(--accent-glow);--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--text-primary);background:var(--bg-primary);-webkit-font-smoothing:antialiased}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,0.15),transparent),radial-gradient(ellipse 60% 40% at 100% 100%,rgba(139,92,246,0.1),transparent);pointer-events:none;z-index:-1}a{color:inherit;text-decoration:none}img{max-width:100%;height:auto}.container{max-width:1100px;margin:0 auto;padding:0 24px}.nav-back{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.nav-back .container{display:flex;justify-content:space-between;align-items:center}.back-link{display:inline-flex;align-items:center;gap:8px;font-weight:500;color:var(--text-secondary);transition:var(--transition)}.back-link:hover{color:var(--accent-light)}.logo{font-size:1.25rem;font-weight:700;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.project-hero{padding:140px 0 80px;text-align:center}.project-category{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;font-size:0.875rem;font-weight:500;color:var(--accent-light);margin-bottom:24px}.project-title{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;line-height:1.1;margin-bottom:20px;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.project-tagline{font-size:1.25rem;color:var(--text-secondary);max-width:700px;margin:0 auto 32px}.project-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;font-size:0.875rem;color:var(--text-muted)}.project-meta span{display:flex;align-items:center;gap:6px}.project-meta i{color:var(--accent-light)}.project-meta a{color:var(--accent-light)}.project-meta a:hover{text-decoration:underline}.impact-section{padding:60px 0}.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}.impact-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;text-align:center;transition:var(--transition)}.impact-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow-glow)}.impact-number{font-size:3rem;font-weight:800;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:8px}.impact-label{font-size:0.875rem;color:var(--text-secondary);font-weight:500}.content-section{padding:60px 0;border-top:1px solid var(--border)}.section-grid{display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:start}@media(max-width:768px){.section-grid{grid-template-columns:1fr;gap:24px}}.section-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent-light);position:sticky;top:100px}.section-content h3{font-size:1.5rem;font-weight:700;margin-bottom:16px}.section-content p{color:var(--text-secondary);margin-bottom:20px}.highlight-box{background:var(--bg-card);border-left:3px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;padding:20px 24px;margin:24px 0;color:var(--text-primary)}.feature-list{list-style:none}.feature-list li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);color:var(--text-secondary)}.feature-list li:last-child{border-bottom:none}.feature-list li i{color:var(--success);font-size:1.1rem;margin-top:2px}.tech-stack{display:flex;flex-wrap:wrap;gap:12px}.tech-tag{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;font-size:0.875rem;font-weight:500;color:var(--text-primary);transition:var(--transition)}.tech-tag:hover{border-color:var(--accent);background:var(--bg-card-hover)}.tech-tag i{color:var(--accent-light)}.project-nav{padding:60px 0;border-top:1px solid var(--border)}.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:600px){.nav-grid{grid-template-columns:1fr}}.nav-card{display:flex;flex-direction:column;gap:8px;padding:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);transition:var(--transition)}.nav-card:hover{border-color:var(--accent);transform:translateY(-2px)}.nav-card.next{text-align:right}.nav-direction{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted)}.nav-title{font-weight:600;color:var(--text-primary)}footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-size:0.875rem;color:var(--text-muted)}footer a{color:var(--accent-light)}
+  </style>
+</head>
+<body>
+  <nav class="nav-back">
+    <div class="container">
+      <a href="index.html" class="back-link"><i class="bi bi-arrow-left"></i> Back to Portfolio</a>
+      <a href="index.html" class="logo">GP</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <span class="project-category"><i class="bi bi-controller"></i> Game Development</span>
+        <h1 class="project-title">Ashen World</h1>
+        <p class="project-tagline">Living-village simulation dimana setiap villager punya kehidupan sendiri—bekerja, menikah, punya anak, jadi King, bahkan berkhianat. Simulasi sosial yang kompleks dalam satu web app.</p>
+        <div class="project-meta">
+          <span><i class="bi bi-calendar3"></i> December 2025</span>
+          <span><i class="bi bi-code-slash"></i> Python / Flask</span>
+          <span><i class="bi bi-github"></i> <a href="https://github.com/GeraldPlakasa/ashen-world" target="_blank">View on GitHub</a></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-section">
+      <div class="container">
+        <div class="impact-grid">
+          <div class="impact-card">
+            <div class="impact-number">181</div>
+            <div class="impact-label">Test Cases</div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-number">15+</div>
+            <div class="impact-label">Game Systems</div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-number">50+</div>
+            <div class="impact-label">Villagers per World</div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-number">Real-time</div>
+            <div class="impact-label">Auto-Simulation</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">The Vision</div>
+          <div class="section-content">
+            <h3>Dunia yang Hidup Sendiri</h3>
+            <p>Ashen World bukan game biasa—ini adalah simulasi sosial dimana setiap villager adalah AI dengan personality traits unik yang mempengaruhi keputusan mereka.</p>
+            <div class="highlight-box">
+              <strong>Core Philosophy:</strong> Pemain tidak mengontrol langsung, tapi menyaksikan drama yang unfold secara organik. Villager bisa jadi pahlawan, pengkhianat, atau korban—tergantung trait dan circumstance mereka.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">Game Systems</div>
+          <div class="section-content">
+            <h3>15+ Interlocking Systems</h3>
+            <p>Setiap sistem saling mempengaruhi, menciptakan emergent gameplay yang tidak pernah sama dua kali.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Elections & Leadership:</strong> Villager voting untuk King setiap 5 tahun, dengan term limit dan corruption mechanics</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Family & Inheritance:</strong> Marriage, children, family tree visualization, dan inheritance system</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Economy & Buildings:</strong> Tax policy, treasury management, construct/upgrade/repair buildings</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Social Dynamics:</strong> Relationships, friendships, rivalries, assassination plots</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Weather System:</strong> Sunny/rain affecting villager actions and productivity</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Combat & Enemies:</strong> External threats, combat resolution, hero villagers</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">Architecture</div>
+          <div class="section-content">
+            <h3>Clean Code, Full Coverage</h3>
+            <p>Project ini dibangun dengan arsitektur yang proper: separation of concerns, repository pattern, dan comprehensive test suite.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Repository Pattern:</strong> Data persistence layer terpisah dari business logic</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Service Layer:</strong> 11 services untuk different game systems</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>TypedDict Models:</strong> Type safety untuk semua data structures</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>181 Tests:</strong> Unit + integration tests dengan pytest</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Real-time API:</strong> JSON API untuk auto-refresh dashboard</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">Features</div>
+          <div class="section-content">
+            <h3>Full-Featured Web Dashboard</h3>
+            <p>Semua diakses via browser—dark theme UI dengan real-time updates.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Kingdom Dashboard:</strong> Sortable/filterable villager table dengan pinned character card</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Admin Control:</strong> Reset world, tick days, start auto-simulation</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Player Character:</strong> Create your own character dan watch them live their life</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Family Tree:</strong> vis-network visualization untuk family relationships</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Leaderboard:</strong> Yearly champions dan all-time records</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">Tech Stack</div>
+          <div class="section-content">
+            <div class="tech-stack">
+              <span class="tech-tag"><i class="bi bi-filetype-py"></i> Python 3.10+</span>
+              <span class="tech-tag"><i class="bi bi-box"></i> Flask</span>
+              <span class="tech-tag"><i class="bi bi-database"></i> SQLite</span>
+              <span class="tech-tag"><i class="bi bi-filetype-html"></i> Jinja2</span>
+              <span class="tech-tag"><i class="bi bi-filetype-js"></i> JavaScript</span>
+              <span class="tech-tag"><i class="bi bi-diagram-3"></i> vis-network</span>
+              <span class="tech-tag"><i class="bi bi-check2-square"></i> Pytest</span>
+              <span class="tech-tag"><i class="bi bi-shield-check"></i> Werkzeug</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-nav">
+      <div class="container">
+        <div class="nav-grid">
+          <a href="portfolio-details-Router-KPI-Check.html" class="nav-card">
+            <span class="nav-direction">← Previous Project</span>
+            <span class="nav-title">Router KPI Check</span>
+          </a>
+          <a href="portfolio-details-topic-detection.html" class="nav-card next">
+            <span class="nav-direction">Next Project →</span>
+            <span class="nav-title">Topic Detection</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container"><p>© 2026 Gerald Plakasa. Built with passion.</p></div></footer>
+</body>
+</html>
