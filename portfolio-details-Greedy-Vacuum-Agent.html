@@ -4,119 +4,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Greedy Vacuum Agent | Gerald Plakasa</title>
-  <meta name="description" content="AI agent using greedy algorithm for optimal cleaning path">
+  <meta name="description" content="Greedy algorithm implementation for vacuum cleaner pathfinding">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    :root{--bg-primary:#0a0a0f;--bg-card:rgba(255,255,255,0.03);--text-primary:#f4f4f5;--text-secondary:#a1a1aa;--text-muted:#71717a;--accent:#6366f1;--accent-light:#818cf8;--accent-glow:rgba(99,102,241,0.4);--success:#22c55e;--border:rgba(255,255,255,0.08);--gradient-primary:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%);--font-sans:'Inter',-apple-system,sans-serif;--radius-lg:16px;--radius-xl:24px;--shadow-glow:0 0 40px var(--accent-glow);--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--text-primary);background:var(--bg-primary);-webkit-font-smoothing:antialiased}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,0.15),transparent),radial-gradient(ellipse 60% 40% at 100% 100%,rgba(139,92,246,0.1),transparent);pointer-events:none;z-index:-1}a{color:inherit;text-decoration:none}img{max-width:100%;height:auto}.container{max-width:1100px;margin:0 auto;padding:0 24px}.nav-back{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.nav-back .container{display:flex;justify-content:space-between;align-items:center}.back-link{display:inline-flex;align-items:center;gap:8px;font-weight:500;color:var(--text-secondary);transition:var(--transition)}.back-link:hover{color:var(--accent-light)}.logo{font-size:1.25rem;font-weight:700;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.project-hero{padding:140px 0 80px;text-align:center}.project-category{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;font-size:0.875rem;font-weight:500;color:var(--accent-light);margin-bottom:24px}.project-title{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;line-height:1.1;margin-bottom:20px;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.project-tagline{font-size:1.25rem;color:var(--text-secondary);max-width:700px;margin:0 auto 32px}.project-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;font-size:0.875rem;color:var(--text-muted)}.project-meta span{display:flex;align-items:center;gap:6px}.project-meta i{color:var(--accent-light)}.impact-section{padding:60px 0}.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}.impact-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;text-align:center;transition:var(--transition)}.impact-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow-glow)}.impact-number{font-size:3rem;font-weight:800;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:8px}.impact-label{font-size:0.875rem;color:var(--text-secondary);font-weight:500}.project-image{padding:40px 0 80px}.project-image img{width:100%;border-radius:var(--radius-xl);border:1px solid var(--border);box-shadow:0 25px 50px rgba(0,0,0,0.4)}.content-section{padding:60px 0;border-top:1px solid var(--border)}.section-grid{display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:start}@media(max-width:768px){.section-grid{grid-template-columns:1fr;gap:24px}}.section-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent-light);position:sticky;top:100px}.section-content h3{font-size:1.5rem;font-weight:700;margin-bottom:16px}.section-content p{color:var(--text-secondary);margin-bottom:20px}.highlight-box{background:var(--bg-card);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:24px 0;color:var(--text-primary)}.feature-list{list-style:none}.feature-list li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);color:var(--text-secondary)}.feature-list li:last-child{border-bottom:none}.feature-list li i{color:var(--success);font-size:1.1rem;margin-top:2px}.tech-stack{display:flex;flex-wrap:wrap;gap:12px}.tech-tag{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;font-size:0.875rem;font-weight:500;color:var(--text-primary);transition:var(--transition)}.tech-tag:hover{border-color:var(--accent)}.tech-tag i{color:var(--accent-light)}.project-nav{padding:60px 0;border-top:1px solid var(--border)}.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:600px){.nav-grid{grid-template-columns:1fr}}.nav-card{display:flex;flex-direction:column;gap:8px;padding:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);transition:var(--transition)}.nav-card:hover{border-color:var(--accent);transform:translateY(-2px)}.nav-card.next{text-align:right}.nav-direction{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted)}.nav-title{font-weight:600;color:var(--text-primary)}footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-size:0.875rem;color:var(--text-muted)}
-  </style>
+  <link href="assets/css/portfolio-detail.css" rel="stylesheet">
 </head>
 <body>
   <nav class="nav-back">
     <div class="container">
       <a href="index.html" class="back-link"><i class="bi bi-arrow-left"></i> Back to Portfolio</a>
-      <a href="index.html" class="logo">GP</a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"><i class="bi bi-moon-fill"></i></button>
+        <a href="index.html" class="logo">GP</a>
+      </div>
     </div>
   </nav>
-
   <main>
     <section class="project-hero">
       <div class="container">
-        <span class="project-category"><i class="bi bi-robot"></i> AI / Optimization</span>
+        <span class="project-category"><i class="bi bi-cpu"></i> AI Algorithm</span>
         <h1 class="project-title">Greedy Vacuum Agent</h1>
-        <p class="project-tagline">Simulasi AI agent yang membersihkan ruangan dengan algoritma Greedy—selalu pilih kotoran terdekat untuk efisiensi maksimal.</p>
+        <p class="project-tagline">Implementasi algoritma Greedy untuk simulasi vacuum cleaner yang mencari jalur optimal ke sampah.</p>
         <div class="project-meta">
           <span><i class="bi bi-calendar3"></i> August 2021</span>
-          <span><i class="bi bi-lightbulb"></i> AI Fundamentals</span>
-          <span><i class="bi bi-mortarboard"></i> Academic Project</span>
+          <span><i class="bi bi-github"></i> <a href="https://github.com/GeraldPlakasa/Greedy-Vacuum-Agent" target="_blank">Open Source</a></span>
         </div>
       </div>
     </section>
-
-    <section class="impact-section">
-      <div class="container">
-        <div class="impact-grid">
-          <div class="impact-card">
-            <div class="impact-number">Greedy</div>
-            <div class="impact-label">Algorithm</div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-number">Local</div>
-            <div class="impact-label">Optimum</div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-number">Fast</div>
-            <div class="impact-label">Decision Making</div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-number">Simple</div>
-            <div class="impact-label">Implementation</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="project-image">
-      <div class="container">
-        <img src="assets/img/portfolio/portfolio-details-gva-1.png" alt="Vacuum Agent Simulation">
-      </div>
-    </section>
-
     <section class="content-section">
       <div class="container">
         <div class="section-grid">
-          <div class="section-label">The Problem</div>
+          <div class="section-label">The Project</div>
           <div class="section-content">
-            <h3>Optimal Cleaning Path</h3>
-            <p>Bayangkan robot vacuum di ruangan dengan multiple spots of dirt. Bagaimana ia memutuskan kemana harus bergerak selanjutnya?</p>
-            <div class="highlight-box">
-              <strong>Classic AI Problem:</strong> Vacuum World adalah benchmark problem di AI—simple tapi illustrative untuk konsep agent dan environment.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <div class="container">
-        <div class="section-grid">
-          <div class="section-label">The Algorithm</div>
-          <div class="section-content">
-            <h3>Greedy Approach</h3>
-            <p>Agent menggunakan strategi greedy: di setiap langkah, pilih action yang memberikan immediate benefit terbesar.</p>
+            <h3>Greedy Optimization</h3>
+            <p>Algoritma Greedy memilih langkah terbaik pada setiap tahap tanpa melihat ke depan—efisien tapi tidak selalu optimal secara global.</p>
             <ul class="feature-list">
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Sense:</strong> Detect semua dirt dalam environment</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Calculate:</strong> Hitung jarak ke setiap dirt</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Choose:</strong> Pilih dirt terdekat (greedy choice)</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Act:</strong> Move ke target dan clean</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Repeat:</strong> Sampai semua bersih</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Step-by-step:</strong> Setiap langkah memilih opsi terdekat</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Fast Computation:</strong> O(n) complexity untuk decision making</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Visual Simulation:</strong> Lihat vacuum bergerak real-time</span></li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-
-    <section class="content-section">
-      <div class="container">
-        <div class="section-grid">
-          <div class="section-label">Key Learnings</div>
-          <div class="section-content">
-            <h3>Greedy ≠ Always Optimal</h3>
-            <p>Project ini mengajarkan trade-off fundamental dalam AI:</p>
-            <ul class="feature-list">
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Fast decisions:</strong> Greedy sangat cepat—O(n) per decision</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Local optimum:</strong> Bisa stuck di solusi yang "bagus tapi bukan terbaik"</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Real-world relevance:</strong> Robot vacuum sungguhan pakai similar heuristics</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Foundation:</strong> Stepping stone ke algorithms lebih kompleks (A*, genetic, dll)</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="content-section">
       <div class="container">
         <div class="section-grid">
@@ -124,31 +56,23 @@
           <div class="section-content">
             <div class="tech-stack">
               <span class="tech-tag"><i class="bi bi-filetype-py"></i> Python</span>
-              <span class="tech-tag"><i class="bi bi-grid-3x3"></i> 2D Grid</span>
-              <span class="tech-tag"><i class="bi bi-calculator"></i> Distance Calc</span>
-              <span class="tech-tag"><i class="bi bi-palette"></i> Visualization</span>
+              <span class="tech-tag"><i class="bi bi-lightbulb"></i> Greedy Algorithm</span>
+              <span class="tech-tag"><i class="bi bi-display"></i> Visualization</span>
             </div>
           </div>
         </div>
       </div>
     </section>
-
     <section class="project-nav">
       <div class="container">
         <div class="nav-grid">
-          <a href="portfolio-details-Shortest-Path-Implementation.html" class="nav-card">
-            <span class="nav-direction">← Previous Project</span>
-            <span class="nav-title">Pathfinding Algorithms</span>
-          </a>
-          <a href="portfolio-details-Router-KPI-Check.html" class="nav-card next">
-            <span class="nav-direction">Next Project →</span>
-            <span class="nav-title">Router KPI Check</span>
-          </a>
+          <a href="portfolio-details-Shortest-Path-Implementation.html" class="nav-card"><span class="nav-direction">← Previous</span><span class="nav-title">Shortest Path</span></a>
+          <a href="portfolio-details-bobi-ai-agent.html" class="nav-card next"><span class="nav-direction">Next →</span><span class="nav-title">Bobi AI Agent</span></a>
         </div>
       </div>
     </section>
   </main>
-
   <footer><div class="container"><p>© 2026 Gerald Plakasa. Built with passion.</p></div></footer>
+  <script src="assets/js/portfolio-detail.js"></script>
 </body>
 </html>

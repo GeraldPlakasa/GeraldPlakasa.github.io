@@ -4,115 +4,52 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paimon Chatbot | Gerald Plakasa</title>
-  <meta name="description" content="Telegram chatbot for tech community engagement and news delivery">
+  <meta name="description" content="Telegram chatbot for tech news and group interaction">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    :root{--bg-primary:#0a0a0f;--bg-card:rgba(255,255,255,0.03);--text-primary:#f4f4f5;--text-secondary:#a1a1aa;--text-muted:#71717a;--accent:#6366f1;--accent-light:#818cf8;--accent-glow:rgba(99,102,241,0.4);--success:#22c55e;--border:rgba(255,255,255,0.08);--gradient-primary:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%);--font-sans:'Inter',-apple-system,sans-serif;--radius-lg:16px;--radius-xl:24px;--shadow-glow:0 0 40px var(--accent-glow);--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--text-primary);background:var(--bg-primary);-webkit-font-smoothing:antialiased}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,0.15),transparent),radial-gradient(ellipse 60% 40% at 100% 100%,rgba(139,92,246,0.1),transparent);pointer-events:none;z-index:-1}a{color:inherit;text-decoration:none}img{max-width:100%;height:auto}.container{max-width:1100px;margin:0 auto;padding:0 24px}.nav-back{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.nav-back .container{display:flex;justify-content:space-between;align-items:center}.back-link{display:inline-flex;align-items:center;gap:8px;font-weight:500;color:var(--text-secondary);transition:var(--transition)}.back-link:hover{color:var(--accent-light)}.logo{font-size:1.25rem;font-weight:700;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.project-hero{padding:140px 0 80px;text-align:center}.project-category{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;font-size:0.875rem;font-weight:500;color:var(--accent-light);margin-bottom:24px}.project-title{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:800;line-height:1.1;margin-bottom:20px;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.project-tagline{font-size:1.25rem;color:var(--text-secondary);max-width:700px;margin:0 auto 32px}.project-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;font-size:0.875rem;color:var(--text-muted)}.project-meta span{display:flex;align-items:center;gap:6px}.project-meta i{color:var(--accent-light)}.impact-section{padding:60px 0}.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}.impact-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;text-align:center;transition:var(--transition)}.impact-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow-glow)}.impact-number{font-size:3rem;font-weight:800;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:8px}.impact-label{font-size:0.875rem;color:var(--text-secondary);font-weight:500}.project-image{padding:40px 0 80px}.project-image img{width:100%;border-radius:var(--radius-xl);border:1px solid var(--border);box-shadow:0 25px 50px rgba(0,0,0,0.4)}.content-section{padding:60px 0;border-top:1px solid var(--border)}.section-grid{display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:start}@media(max-width:768px){.section-grid{grid-template-columns:1fr;gap:24px}}.section-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent-light);position:sticky;top:100px}.section-content h3{font-size:1.5rem;font-weight:700;margin-bottom:16px}.section-content p{color:var(--text-secondary);margin-bottom:20px}.highlight-box{background:var(--bg-card);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:24px 0;color:var(--text-primary)}.feature-list{list-style:none}.feature-list li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);color:var(--text-secondary)}.feature-list li:last-child{border-bottom:none}.feature-list li i{color:var(--success);font-size:1.1rem;margin-top:2px}.tech-stack{display:flex;flex-wrap:wrap;gap:12px}.tech-tag{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;font-size:0.875rem;font-weight:500;color:var(--text-primary);transition:var(--transition)}.tech-tag:hover{border-color:var(--accent)}.tech-tag i{color:var(--accent-light)}.project-nav{padding:60px 0;border-top:1px solid var(--border)}.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:600px){.nav-grid{grid-template-columns:1fr}}.nav-card{display:flex;flex-direction:column;gap:8px;padding:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);transition:var(--transition)}.nav-card:hover{border-color:var(--accent);transform:translateY(-2px)}.nav-card.next{text-align:right}.nav-direction{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted)}.nav-title{font-weight:600;color:var(--text-primary)}footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-size:0.875rem;color:var(--text-muted)}
-  </style>
+  <link href="assets/css/portfolio-detail.css" rel="stylesheet">
 </head>
 <body>
   <nav class="nav-back">
     <div class="container">
       <a href="index.html" class="back-link"><i class="bi bi-arrow-left"></i> Back to Portfolio</a>
-      <a href="index.html" class="logo">GP</a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"><i class="bi bi-moon-fill"></i></button>
+        <a href="index.html" class="logo">GP</a>
+      </div>
     </div>
   </nav>
-
   <main>
     <section class="project-hero">
       <div class="container">
-        <span class="project-category"><i class="bi bi-cpu"></i> NLP / Chatbot</span>
+        <span class="project-category"><i class="bi bi-robot"></i> Chatbot</span>
         <h1 class="project-title">Paimon Chatbot</h1>
-        <p class="project-tagline">Bot Telegram yang mengubah grup alumni menjadi hub interaktif—mengirim tech news, menjawab pertanyaan, dan menjaga komunitas tetap engaged.</p>
+        <p class="project-tagline">Telegram bot untuk meningkatkan interaktivitas grup dan menyebarkan berita teknologi terkini—kolaborasi dengan alumni UNSRI.</p>
         <div class="project-meta">
           <span><i class="bi bi-calendar3"></i> June 2021</span>
-          <span><i class="bi bi-telegram"></i> Telegram Bot</span>
-          <span><i class="bi bi-people"></i> Community Project</span>
+          <span><i class="bi bi-people"></i> Collaboration Project</span>
+          <span><i class="bi bi-github"></i> <a href="https://github.com/unsri-hackers/Paimon" target="_blank">Open Source</a></span>
         </div>
       </div>
     </section>
-
-    <section class="impact-section">
-      <div class="container">
-        <div class="impact-grid">
-          <div class="impact-card">
-            <div class="impact-number">24/7</div>
-            <div class="impact-label">Always Online</div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-number">Auto</div>
-            <div class="impact-label">News Delivery</div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-number">UNSRI</div>
-            <div class="impact-label">Hackers Community</div>
-          </div>
-          <div class="impact-card">
-            <div class="impact-number">Open</div>
-            <div class="impact-label">Source Code</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="project-image">
-      <div class="container">
-        <img src="assets/img/portfolio/portfolio-details-paimon-1.png" alt="Paimon Chatbot Interface">
-      </div>
-    </section>
-
     <section class="content-section">
       <div class="container">
         <div class="section-grid">
-          <div class="section-label">The Context</div>
+          <div class="section-label">The Project</div>
           <div class="section-content">
-            <h3>Keeping Community Alive</h3>
-            <p>UNSRI Hackers adalah komunitas alumni tech dari Universitas Sriwijaya. Tantangannya: bagaimana menjaga grup Telegram tetap aktif dan informatif?</p>
-            <div class="highlight-box">
-              <strong>Goal:</strong> Bot yang bisa deliver tech news secara otomatis dan memberikan interaktifitas ke grup—bukan spam, tapi value.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <div class="container">
-        <div class="section-grid">
-          <div class="section-label">Features</div>
-          <div class="section-content">
-            <h3>More Than Just a Bot</h3>
-            <p>Paimon didesain untuk jadi "anggota grup" yang helpful, bukan sekadar command executor.</p>
+            <h3>Interactive Group Assistant</h3>
+            <p>Paimon dibangun untuk membuat Telegram group lebih interaktif dan menjadi sumber informasi teknologi bagi anggota komunitas.</p>
             <ul class="feature-list">
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Auto News Feed:</strong> Scraping dan deliver berita tech terbaru ke grup</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Interactive Commands:</strong> Respond ke mention dan pertanyaan member</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Group Management:</strong> Welcome message, rules reminder, dll</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Fun Elements:</strong> Quotes, jokes, dan ice breakers</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Tech News:</strong> Agregasi berita teknologi dari berbagai sumber</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Interactive Commands:</strong> Berbagai command untuk fun dan utility</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Community Building:</strong> Fitur untuk meningkatkan engagement grup</span></li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-
-    <section class="content-section">
-      <div class="container">
-        <div class="section-grid">
-          <div class="section-label">Collaboration</div>
-          <div class="section-content">
-            <h3>Built With Alumni</h3>
-            <p>Project ini dikerjakan bersama alumni UNSRI, menjadi latihan collaboration dalam software development.</p>
-            <div class="highlight-box">
-              <strong>Learning:</strong> Pengalaman pertama bekerja dalam tim untuk open source project—dari planning, coding, hingga deployment.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="content-section">
       <div class="container">
         <div class="section-grid">
@@ -120,31 +57,23 @@
           <div class="section-content">
             <div class="tech-stack">
               <span class="tech-tag"><i class="bi bi-filetype-py"></i> Python</span>
-              <span class="tech-tag"><i class="bi bi-telegram"></i> python-telegram-bot</span>
-              <span class="tech-tag"><i class="bi bi-globe"></i> Web Scraping</span>
-              <span class="tech-tag"><i class="bi bi-cloud"></i> Heroku</span>
+              <span class="tech-tag"><i class="bi bi-telegram"></i> Telegram Bot API</span>
+              <span class="tech-tag"><i class="bi bi-rss"></i> News API</span>
             </div>
           </div>
         </div>
       </div>
     </section>
-
     <section class="project-nav">
       <div class="container">
         <div class="nav-grid">
-          <a href="portfolio-details-E-comerce-Book-Review.html" class="nav-card">
-            <span class="nav-direction">← Previous Project</span>
-            <span class="nav-title">E-commerce Book Review</span>
-          </a>
-          <a href="portfolio-details-Python-Scraping.html" class="nav-card next">
-            <span class="nav-direction">Next Project →</span>
-            <span class="nav-title">Python Scraping</span>
-          </a>
+          <a href="portfolio-details-Python-Scraping.html" class="nav-card"><span class="nav-direction">← Previous</span><span class="nav-title">Python Scraping</span></a>
+          <a href="portfolio-details-Laptop-Determination.html" class="nav-card next"><span class="nav-direction">Next →</span><span class="nav-title">Laptop Determination</span></a>
         </div>
       </div>
     </section>
   </main>
-
   <footer><div class="container"><p>© 2026 Gerald Plakasa. Built with passion.</p></div></footer>
+  <script src="assets/js/portfolio-detail.js"></script>
 </body>
 </html>
