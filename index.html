@@ -476,58 +476,6 @@
       font-size: 1.3rem;
     }
     
-    .skill-items {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-4);
-    }
-    
-    .skill-item {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-    
-    .skill-item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .skill-name {
-      font-size: var(--text-sm);
-      font-weight: 500;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
-    
-    .skill-name i {
-      font-size: 0.9rem;
-      color: var(--accent);
-    }
-    
-    .skill-level {
-      font-size: var(--text-xs);
-      color: var(--text-muted);
-    }
-    
-    .skill-bar {
-      height: 6px;
-      background: var(--bg-secondary);
-      border-radius: var(--radius-full);
-      overflow: hidden;
-    }
-    
-    .skill-progress {
-      height: 100%;
-      background: var(--gradient-primary);
-      border-radius: var(--radius-full);
-      transition: width 1s ease-out;
-    }
-    
-    /* Skill Tags Style (for tools/misc) */
     .skill-tags {
       display: flex;
       flex-wrap: wrap;
@@ -1100,70 +1048,25 @@
           <!-- Data Science & AI -->
           <div class="skill-category">
             <h3><i class="bi bi-cpu"></i> Data Science & AI</h3>
-            <div class="skill-items">
-              <div class="skill-item">
-                <div class="skill-item-header">
-                  <span class="skill-name"><i class="bi bi-graph-up-arrow"></i> Data Analytics</span>
-                  <span class="skill-level">Expert</span>
-                </div>
-                <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-header">
-                  <span class="skill-name"><i class="bi bi-robot"></i> Machine Learning</span>
-                  <span class="skill-level">Advanced</span>
-                </div>
-                <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-header">
-                  <span class="skill-name"><i class="bi bi-chat-dots"></i> NLP</span>
-                  <span class="skill-level">Advanced</span>
-                </div>
-                <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-header">
-                  <span class="skill-name"><i class="bi bi-bar-chart-line"></i> Data Visualization</span>
-                  <span class="skill-level">Expert</span>
-                </div>
-                <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
-              </div>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="bi bi-graph-up-arrow"></i> Data Analytics</span>
+              <span class="skill-tag"><i class="bi bi-robot"></i> Machine Learning</span>
+              <span class="skill-tag"><i class="bi bi-chat-dots"></i> NLP</span>
+              <span class="skill-tag"><i class="bi bi-bar-chart-line"></i> Data Visualization</span>
+              <span class="skill-tag"><i class="bi bi-emoji-smile"></i> Sentiment Analysis</span>
+              <span class="skill-tag"><i class="bi bi-journal-text"></i> Keyphrase Extraction</span>
             </div>
           </div>
           
           <!-- Programming Languages -->
           <div class="skill-category">
             <h3><i class="bi bi-code-slash"></i> Programming</h3>
-            <div class="skill-items">
-              <div class="skill-item">
-                <div class="skill-item-header">
-                  <span class="skill-name"><i class="bi bi-filetype-py"></i> Python</span>
-                  <span class="skill-level">Expert</span>
-                </div>
-                <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-header">
-                  <span class="skill-name"><i class="bi bi-filetype-js"></i> JavaScript</span>
-                  <span class="skill-level">Intermediate</span>
-                </div>
-                <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-header">
-                  <span class="skill-name"><i class="bi bi-filetype-php"></i> PHP / Laravel</span>
-                  <span class="skill-level">Intermediate</span>
-                </div>
-                <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-header">
-                  <span class="skill-name"><i class="bi bi-database"></i> SQL</span>
-                  <span class="skill-level">Advanced</span>
-                </div>
-                <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-              </div>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="bi bi-filetype-py"></i> Python</span>
+              <span class="skill-tag"><i class="bi bi-filetype-js"></i> JavaScript</span>
+              <span class="skill-tag"><i class="bi bi-filetype-php"></i> PHP</span>
+              <span class="skill-tag"><i class="bi bi-box"></i> Laravel</span>
+              <span class="skill-tag"><i class="bi bi-database"></i> SQL</span>
             </div>
           </div>
           
@@ -1191,8 +1094,6 @@
               <span class="skill-tag"><i class="bi bi-gear-wide-connected"></i> Automation</span>
               <span class="skill-tag"><i class="bi bi-file-earmark-excel"></i> Excel Automation</span>
               <span class="skill-tag"><i class="bi bi-plug"></i> API Integration</span>
-              <span class="skill-tag"><i class="bi bi-journal-text"></i> Keyphrase Extraction</span>
-              <span class="skill-tag"><i class="bi bi-emoji-smile"></i> Sentiment Analysis</span>
             </div>
           </div>
         </div>
