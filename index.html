@@ -416,11 +416,17 @@
     }
     
     /* ========================================
-       SKILLS SECTION
+       SKILLS SECTION - Modern Redesign
        ======================================== */
+    .skills-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+    
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: var(--space-6);
     }
     
@@ -430,6 +436,20 @@
       border-radius: var(--radius-lg);
       padding: var(--space-6);
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: var(--transition);
     }
     
     .skill-category:hover {
@@ -438,10 +458,14 @@
       box-shadow: var(--shadow-glow);
     }
     
+    .skill-category:hover::before {
+      opacity: 1;
+    }
+    
     .skill-category h3 {
       font-size: var(--text-lg);
       font-weight: 600;
-      margin-bottom: var(--space-4);
+      margin-bottom: var(--space-5);
       display: flex;
       align-items: center;
       gap: var(--space-3);
@@ -449,8 +473,61 @@
     
     .skill-category h3 i {
       color: var(--accent-light);
+      font-size: 1.3rem;
     }
     
+    .skill-items {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    
+    .skill-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    
+    .skill-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .skill-name {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    
+    .skill-name i {
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+    
+    .skill-level {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+    
+    .skill-bar {
+      height: 6px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    
+    .skill-progress {
+      height: 100%;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-full);
+      transition: width 1s ease-out;
+    }
+    
+    /* Skill Tags Style (for tools/misc) */
     .skill-tags {
       display: flex;
       flex-wrap: wrap;
@@ -460,10 +537,29 @@
     .skill-tag {
       padding: var(--space-2) var(--space-3);
       background: var(--bg-secondary);
+      border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       font-size: var(--text-xs);
       font-weight: 500;
       color: var(--text-secondary);
+      transition: var(--transition);
+    }
+    
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent-light);
+      transform: translateY(-2px);
+    }
+    
+    .skill-tag i {
+      margin-right: 4px;
+      color: var(--accent);
+    }
+    
+    @media (max-width: 768px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
     }
     
     /* ========================================
@@ -571,26 +667,6 @@
       cursor: pointer;
     }
     
-    .cert-card::after {
-      content: '';
-      position: absolute;
-      bottom: var(--space-4);
-      right: var(--space-4);
-      width: 24px;
-      height: 24px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: var(--transition);
-    }
-    
-    .cert-card:hover::after {
-      opacity: 1;
-    }
-    
     .cert-card {
       position: relative;
     }
@@ -601,11 +677,15 @@
       right: var(--space-3);
       font-size: var(--text-xs);
       color: var(--accent-light);
+      background: var(--bg-card);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
       opacity: 0;
       transition: var(--transition);
       display: flex;
       align-items: center;
       gap: var(--space-1);
+      z-index: 10;
     }
     
     .cert-card:hover .cert-view-hint {
@@ -1015,41 +1095,105 @@
         <span class="section-label">What I Do</span>
         <h2 class="section-title">Skills & Expertise</h2>
       </div>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <h3><i class="bi bi-braces"></i> Programming</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">SQL</span>
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">OOP</span>
+      <div class="skills-container">
+        <div class="skills-grid">
+          <!-- Data Science & AI -->
+          <div class="skill-category">
+            <h3><i class="bi bi-cpu"></i> Data Science & AI</h3>
+            <div class="skill-items">
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <span class="skill-name"><i class="bi bi-graph-up-arrow"></i> Data Analytics</span>
+                  <span class="skill-level">Expert</span>
+                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <span class="skill-name"><i class="bi bi-robot"></i> Machine Learning</span>
+                  <span class="skill-level">Advanced</span>
+                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <span class="skill-name"><i class="bi bi-chat-dots"></i> NLP</span>
+                  <span class="skill-level">Advanced</span>
+                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <span class="skill-name"><i class="bi bi-bar-chart-line"></i> Data Visualization</span>
+                  <span class="skill-level">Expert</span>
+                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="skill-category">
-          <h3><i class="bi bi-cpu"></i> AI & Machine Learning</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">NLP</span>
-            <span class="skill-tag">Deep Learning</span>
-            <span class="skill-tag">Sentiment Analysis</span>
-            <span class="skill-tag">Keyphrase Extraction</span>
+          
+          <!-- Programming Languages -->
+          <div class="skill-category">
+            <h3><i class="bi bi-code-slash"></i> Programming</h3>
+            <div class="skill-items">
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <span class="skill-name"><i class="bi bi-filetype-py"></i> Python</span>
+                  <span class="skill-level">Expert</span>
+                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <span class="skill-name"><i class="bi bi-filetype-js"></i> JavaScript</span>
+                  <span class="skill-level">Intermediate</span>
+                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <span class="skill-name"><i class="bi bi-filetype-php"></i> PHP / Laravel</span>
+                  <span class="skill-level">Intermediate</span>
+                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <span class="skill-name"><i class="bi bi-database"></i> SQL</span>
+                  <span class="skill-level">Advanced</span>
+                </div>
+                <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="skill-category">
-          <h3><i class="bi bi-bar-chart"></i> Data & Analytics</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">MySQL</span>
-            <span class="skill-tag">BigQuery</span>
-            <span class="skill-tag">Looker Studio</span>
-            <span class="skill-tag">Matplotlib</span>
+          
+          <!-- Tools & Platforms -->
+          <div class="skill-category">
+            <h3><i class="bi bi-tools"></i> Tools & Platforms</h3>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="bi bi-database-fill"></i> MySQL</span>
+              <span class="skill-tag"><i class="bi bi-cloud"></i> BigQuery</span>
+              <span class="skill-tag"><i class="bi bi-graph-up"></i> Looker Studio</span>
+              <span class="skill-tag"><i class="bi bi-bar-chart"></i> Matplotlib</span>
+              <span class="skill-tag"><i class="bi bi-diagram-3"></i> Dataiku</span>
+              <span class="skill-tag"><i class="bi bi-git"></i> Git</span>
+              <span class="skill-tag"><i class="bi bi-box"></i> Flask</span>
+              <span class="skill-tag"><i class="bi bi-github"></i> GitHub</span>
+            </div>
           </div>
-        </div>
-        <div class="skill-category">
-          <h3><i class="bi bi-gear"></i> Automation</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Web Scraping</span>
-            <span class="skill-tag">Excel Automation</span>
-            <span class="skill-tag">API Integration</span>
-            <span class="skill-tag">Chatbots</span>
+          
+          <!-- Specializations -->
+          <div class="skill-category">
+            <h3><i class="bi bi-lightning-charge"></i> Specializations</h3>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="bi bi-chat-square-text"></i> Chatbot Development</span>
+              <span class="skill-tag"><i class="bi bi-globe"></i> Web Scraping</span>
+              <span class="skill-tag"><i class="bi bi-gear-wide-connected"></i> Automation</span>
+              <span class="skill-tag"><i class="bi bi-file-earmark-excel"></i> Excel Automation</span>
+              <span class="skill-tag"><i class="bi bi-plug"></i> API Integration</span>
+              <span class="skill-tag"><i class="bi bi-journal-text"></i> Keyphrase Extraction</span>
+              <span class="skill-tag"><i class="bi bi-emoji-smile"></i> Sentiment Analysis</span>
+            </div>
           </div>
         </div>
       </div>
