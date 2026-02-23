@@ -467,6 +467,106 @@
     }
     
     /* ========================================
+       CERTIFICATIONS SECTION
+       ======================================== */
+    .certifications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: var(--space-6);
+    }
+    
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+    
+    .cert-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .cert-card.hidden {
+      display: none;
+    }
+    
+    .cert-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-md);
+      font-size: 1.4rem;
+      color: white;
+    }
+    
+    .cert-content h3 {
+      font-size: var(--text-base);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+      line-height: 1.4;
+    }
+    
+    .cert-content .cert-issuer {
+      font-size: var(--text-sm);
+      color: var(--accent-light);
+      margin-bottom: var(--space-1);
+    }
+    
+    .cert-content .cert-date {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+    
+    .cert-toggle-container {
+      text-align: center;
+      margin-top: var(--space-8);
+    }
+    
+    .cert-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .cert-toggle-btn:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+    }
+    
+    .cert-toggle-btn i {
+      transition: transform var(--transition);
+    }
+    
+    .cert-toggle-btn.expanded i {
+      transform: rotate(180deg);
+    }
+    
+    @media (max-width: 400px) {
+      .certifications-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* ========================================
        PORTFOLIO SECTION
        ======================================== */
     .portfolio-filters {
@@ -720,6 +820,7 @@
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#skills">Skills</a></li>
+        <li><a href="#certifications">Certifications</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#testimonials">Recommendations</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -817,6 +918,86 @@
             <span class="skill-tag">Chatbots</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section id="certifications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Achievements</span>
+        <h2 class="section-title">Certifications</h2>
+      </div>
+      <div class="certifications-grid" id="cert-grid">
+        <div class="cert-card">
+          <div class="cert-icon"><i class="bi bi-award"></i></div>
+          <div class="cert-content">
+            <h3>Contributor Asah Led by Dicoding in Association with Accenture</h3>
+            <p class="cert-issuer">Dicoding & Accenture</p>
+            <p class="cert-date">16 February 2026</p>
+          </div>
+        </div>
+        
+        <div class="cert-card">
+          <div class="cert-icon"><i class="bi bi-google"></i></div>
+          <div class="cert-content">
+            <h3>Contributor at Bangkit 2024 Batch 2</h3>
+            <p class="cert-issuer">Google Indonesia, GoTo, Traveloka</p>
+            <p class="cert-date">11 February 2025</p>
+          </div>
+        </div>
+        
+        <div class="cert-card">
+          <div class="cert-icon"><i class="bi bi-diagram-3"></i></div>
+          <div class="cert-content">
+            <h3>Core Designer Certificate</h3>
+            <p class="cert-issuer">Dataiku</p>
+            <p class="cert-date">9 September 2025</p>
+          </div>
+        </div>
+        
+        <div class="cert-card">
+          <div class="cert-icon"><i class="bi bi-people"></i></div>
+          <div class="cert-content">
+            <h3>Mentor in Smartpath Data Analyst International Bootcamp</h3>
+            <p class="cert-issuer">Smartpath</p>
+            <p class="cert-date">5 September 2025</p>
+          </div>
+        </div>
+        
+        <div class="cert-card">
+          <div class="cert-icon"><i class="bi bi-code-slash"></i></div>
+          <div class="cert-content">
+            <h3>Contributor Coding Camp 2025 powered by DBS Foundation</h3>
+            <p class="cert-issuer">Dicoding & PT Bank DBS Indonesia</p>
+            <p class="cert-date">11 August 2025</p>
+          </div>
+        </div>
+        
+        <div class="cert-card">
+          <div class="cert-icon"><i class="bi bi-mortarboard"></i></div>
+          <div class="cert-content">
+            <h3>Assistant Mentor Bootcamp Machine Learning & AI for Beginner Batch 13</h3>
+            <p class="cert-issuer">DQLab</p>
+            <p class="cert-date">3 August 2024</p>
+          </div>
+        </div>
+        
+        <div class="cert-card hidden" data-hidden-cert>
+          <div class="cert-icon"><i class="bi bi-bar-chart-line"></i></div>
+          <div class="cert-content">
+            <h3>Google Data Analytics</h3>
+            <p class="cert-issuer">Google</p>
+            <p class="cert-date">15 December 2022</p>
+          </div>
+        </div>
+      </div>
+      <div class="cert-toggle-container">
+        <button class="cert-toggle-btn" id="cert-toggle">
+          <span>Show More</span>
+          <i class="bi bi-chevron-down"></i>
+        </button>
       </div>
     </div>
   </section>
@@ -1060,8 +1241,22 @@
       });
     }, { threshold: 0.1 });
     
-    document.querySelectorAll('.skill-category, .portfolio-card, .testimonial-card').forEach(el => {
+    document.querySelectorAll('.skill-category, .cert-card, .portfolio-card, .testimonial-card').forEach(el => {
       observer.observe(el);
+    });
+    
+    // Certifications Toggle
+    const certToggle = document.getElementById('cert-toggle');
+    const hiddenCerts = document.querySelectorAll('[data-hidden-cert]');
+    let certsExpanded = false;
+    
+    certToggle.addEventListener('click', () => {
+      certsExpanded = !certsExpanded;
+      hiddenCerts.forEach(cert => {
+        cert.classList.toggle('hidden', !certsExpanded);
+      });
+      certToggle.querySelector('span').textContent = certsExpanded ? 'Show Less' : 'Show More';
+      certToggle.classList.toggle('expanded', certsExpanded);
     });
     
     // Theme Toggle
