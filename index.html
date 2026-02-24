@@ -819,8 +819,24 @@
        ======================================== */
     .testimonials-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--space-6);
+    }
+    
+    /* Tablet: 2 columns maintained */
+    @media (max-width: 900px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+      }
+    }
+    
+    /* Mobile: 1 column stack */
+    @media (max-width: 600px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
     }
     
     .testimonial-card {
