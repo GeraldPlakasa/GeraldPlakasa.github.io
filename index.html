@@ -21,11 +21,12 @@
   <script>
     (function () {
       try {
+        /* default is LIGHT; dark only when the visitor chose it */
         var saved = localStorage.getItem('portfolio-theme');
-        var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var theme = saved || (sysDark ? 'dark' : 'light');
-        if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
-      } catch (e) { }
+        if (saved !== 'dark') document.documentElement.setAttribute('data-theme', 'light');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
     })();
   </script>
 
@@ -619,8 +620,7 @@
       z-index: 60;
       pointer-events: none;
     }
-    .presenter-svg { width: 100%; height: auto; display: block; animation: floaty 5.5s ease-in-out infinite; }
-    @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    .presenter-svg { width: 100%; height: auto; display: block; }
 
     .presenter-bubble {
       position: absolute;
@@ -640,48 +640,88 @@
     .presenter-bubble b { color: var(--accent); font-weight: 500; }
     .presenter-bubble.show { opacity: 1; transform: none; }
 
-    /* robot parts */
-    #arm { transform-box: view-box; transform-origin: 164px 122px; }
-    #head { transform-box: view-box; transform-origin: 192px 106px; }
+    /* robot parts — a bored little bot slouching on an office chair */
+    #hand { transform-box: view-box; transform-origin: 120px 130px; }
     #next-key, #tap-ripple { transform-box: fill-box; transform-origin: center; }
-    #eyes rect { transform-box: fill-box; transform-origin: center; animation: blink 5.4s infinite; }
-    @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 94.5%, 96.5% { transform: scaleY(0.08); } }
-    #antenna-tip { animation: antenna 2.6s ease-in-out infinite; }
-    @keyframes antenna { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
     #chest { transition: fill 0.2s; }
 
-    /* press choreography (~0.78s) */
-    .presenter.pressing #arm { animation: press 0.78s var(--ease) both; }
-    @keyframes press {
-      0% { transform: rotate(0deg); }
-      36% { transform: rotate(-10deg); }
-      52% { transform: rotate(-10deg); }
-      100% { transform: rotate(0deg); }
+    /* head rests on its fist, keeps nodding off and catching itself */
+    #head {
+      transform-box: view-box; transform-origin: 208px 98px;
+      animation: bored-nod 8s ease-in-out infinite;
     }
-    .presenter.pressing #head { animation: nod 0.78s var(--ease) both; }
-    @keyframes nod {
-      0% { transform: rotate(0deg); }
-      38% { transform: rotate(-5deg); }
-      55% { transform: rotate(-5deg); }
-      100% { transform: rotate(0deg); }
+    @keyframes bored-nod {
+      0%, 40%, 100% { transform: rotate(6deg); }
+      52% { transform: rotate(10deg); }
+      58% { transform: rotate(4.5deg); }
+      66% { transform: rotate(6deg); }
     }
-    .presenter.pressing #next-key { animation: keypress 0.78s var(--ease) both; }
+
+    /* half-lidded eyes, heavy slow blinks */
+    #eyes rect {
+      transform-box: fill-box; transform-origin: center bottom;
+      animation: bored-blink 6.5s infinite;
+    }
+    @keyframes bored-blink {
+      0%, 38%, 100% { transform: scaleY(1); }
+      42%, 47% { transform: scaleY(0.12); }
+      52% { transform: scaleY(1); }
+      86% { transform: scaleY(0.5); }
+      93% { transform: scaleY(1); }
+    }
+
+    /* dangling foot swings idly */
+    #leg-swing {
+      transform-box: view-box; transform-origin: 170px 146px;
+      animation: swing 3.4s ease-in-out infinite;
+    }
+    @keyframes swing {
+      0%, 100% { transform: rotate(3.5deg); }
+      50% { transform: rotate(-6deg); }
+    }
+
+    /* wilted antenna, slow lazy pulse */
+    #antenna-tip { animation: antenna 3.2s ease-in-out infinite; }
+    @keyframes antenna { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.9; } }
+
+    /* press choreography (~0.95s): perks up, lazy finger tap, sags back */
+    .presenter.pressing #hand { animation: tap 0.95s var(--ease) both; }
+    @keyframes tap {
+      0%, 18% { transform: rotate(0deg); }
+      38% { transform: rotate(-10deg); }
+      56% { transform: rotate(-10deg); }
+      82%, 100% { transform: rotate(0deg); }
+    }
+    .presenter.pressing #head { animation: perk 0.95s var(--ease) both; }
+    @keyframes perk {
+      0% { transform: rotate(6deg); }
+      30% { transform: rotate(1deg); }
+      60% { transform: rotate(1.5deg); }
+      100% { transform: rotate(6deg); }
+    }
+    .presenter.pressing #eyes rect { animation: alert 0.95s var(--ease) both; }
+    @keyframes alert {
+      0% { transform: scaleY(1); }
+      28%, 62% { transform: scaleY(1.5); }
+      100% { transform: scaleY(1); }
+    }
+    .presenter.pressing #next-key { animation: keypress 0.95s var(--ease) both; }
     @keyframes keypress {
-      0%, 32% { transform: translateY(0); }
-      40%, 52% { transform: translateY(2.5px); }
-      64%, 100% { transform: translateY(0); }
+      0%, 36% { transform: translateY(0); }
+      44%, 56% { transform: translateY(2.5px); }
+      68%, 100% { transform: translateY(0); }
     }
-    .presenter.pressing #screen-flash { animation: flash 0.78s var(--ease) both; }
+    .presenter.pressing #screen-flash { animation: flash 0.95s var(--ease) both; }
     @keyframes flash {
-      0%, 34% { opacity: 0; }
-      42% { opacity: 0.45; }
-      62%, 100% { opacity: 0; }
+      0%, 40% { opacity: 0; }
+      48% { opacity: 0.45; }
+      66%, 100% { opacity: 0; }
     }
-    .presenter.pressing #tap-ripple { animation: ripple 0.78s var(--ease) both; }
+    .presenter.pressing #tap-ripple { animation: ripple 0.95s var(--ease) both; }
     @keyframes ripple {
-      0%, 36% { opacity: 0; transform: scale(0.4); }
-      44% { opacity: 0.8; transform: scale(1); }
-      72%, 100% { opacity: 0; transform: scale(2.4); }
+      0%, 42% { opacity: 0; transform: scale(0.4); }
+      50% { opacity: 0.8; transform: scale(1); }
+      78%, 100% { opacity: 0; transform: scale(2.4); }
     }
     .presenter.pressing #chest { fill: var(--accent); }
 
@@ -1102,76 +1142,103 @@
     <div class="presenter-bubble" id="presenter-bubble"></div>
     <svg class="presenter-svg" viewBox="0 0 260 190" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- ground shadow -->
-      <ellipse cx="130" cy="176" rx="98" ry="7" fill="currentColor" opacity="0.07"/>
+      <ellipse cx="130" cy="178" rx="105" ry="6.5" fill="currentColor" opacity="0.07"/>
 
-      <!-- laptop -->
-      <g id="laptop">
-        <!-- screen (slightly tilted back) -->
-        <g transform="rotate(-4 70 120)">
-          <rect x="32" y="74" width="80" height="58" rx="7" fill="var(--lap-bezel)"/>
-          <rect x="37" y="79" width="70" height="48" rx="4" fill="var(--lap-screen)"/>
-          <!-- slide counter -->
-          <text id="slide-num" x="78" y="112" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="24" font-weight="700" fill="#f4f4f5">01</text>
-          <text x="81" y="112" font-family="JetBrains Mono, monospace" font-size="10" fill="#8e8e95">/06</text>
-          <!-- play icon -->
-          <path d="M96 86 l7 4 -7 4 z" fill="var(--accent)"/>
-          <!-- progress line on screen -->
-          <rect x="43" y="118" width="58" height="2" rx="1" fill="#3a3a45"/>
-          <rect id="screen-bar" x="43" y="118" width="10" height="2" rx="1" fill="var(--accent)"/>
-          <!-- flash overlay -->
-          <rect id="screen-flash" x="37" y="79" width="70" height="48" rx="4" fill="var(--accent)" opacity="0"/>
-        </g>
-        <!-- deck -->
-        <path d="M30 136 L114 136 L124 152 L20 152 Z" fill="var(--lap-deck)"/>
-        <!-- key hints -->
-        <g fill="var(--lap-key)">
-          <rect x="38" y="139" width="9" height="3.6" rx="1.6"/>
-          <rect x="50" y="139" width="9" height="3.6" rx="1.6"/>
-          <rect x="62" y="139" width="9" height="3.6" rx="1.6"/>
-          <rect x="74" y="139" width="9" height="3.6" rx="1.6"/>
-          <rect x="86" y="139" width="9" height="3.6" rx="1.6"/>
-          <rect x="34" y="145" width="9" height="3.6" rx="1.6"/>
-          <rect x="46" y="145" width="9" height="3.6" rx="1.6"/>
-          <rect x="58" y="145" width="9" height="3.6" rx="1.6"/>
-          <rect x="70" y="145" width="9" height="3.6" rx="1.6"/>
-          <rect x="82" y="145" width="9" height="3.6" rx="1.6"/>
-        </g>
-        <!-- the NEXT key -->
-        <rect id="next-key" x="100" y="141" width="16" height="8" rx="3" fill="var(--accent)"/>
-        <circle id="tap-ripple" cx="108" cy="142" r="7" stroke="var(--accent)" stroke-width="2" fill="none" opacity="0"/>
+      <!-- desk -->
+      <g id="desk">
+        <rect x="24" y="136" width="5" height="40" rx="2" fill="var(--bot-limb)"/>
+        <rect x="128" y="136" width="5" height="40" rx="2" fill="var(--bot-limb)"/>
+        <rect x="16" y="130" width="124" height="6" rx="3" fill="var(--lap-deck)"/>
       </g>
 
-      <!-- robot -->
-      <g id="bot">
-        <!-- feet -->
-        <rect x="170" y="162" width="20" height="11" rx="5" fill="var(--bot-limb)"/>
-        <rect x="200" y="162" width="20" height="11" rx="5" fill="var(--bot-limb)"/>
-        <!-- right arm (resting) -->
-        <rect x="222" y="124" width="9" height="27" rx="4.5" fill="var(--bot-limb)"/>
-        <!-- body -->
-        <rect x="162" y="110" width="60" height="56" rx="16" fill="var(--bot-body)"/>
-        <circle id="chest" cx="192" cy="140" r="6" fill="var(--accent)" opacity="0.85"/>
-        <!-- left arm: presses the key. pivot at (164,122) -->
-        <g id="arm">
-          <path d="M164 122 C 148 120, 134 124, 123 131" stroke="var(--bot-limb)" stroke-width="9" stroke-linecap="round"/>
-          <circle cx="121" cy="132" r="6.5" fill="var(--bot-limb)"/>
-          <path d="M121 132 L 108 136" stroke="var(--bot-limb)" stroke-width="5" stroke-linecap="round"/>
+      <!-- laptop on the desk -->
+      <g id="laptop">
+        <g transform="rotate(-3 65 100)">
+          <rect x="28" y="72" width="72" height="50" rx="6" fill="var(--lap-bezel)"/>
+          <rect x="33" y="77" width="62" height="40" rx="3" fill="var(--lap-screen)"/>
+          <!-- slide counter -->
+          <text id="slide-num" x="72" y="104" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#f4f4f5">01</text>
+          <text x="75" y="104" font-family="JetBrains Mono, monospace" font-size="9" fill="#8e8e95">/06</text>
+          <!-- play icon -->
+          <path d="M85 83 l6 3.5 -6 3.5 z" fill="var(--accent)"/>
+          <!-- progress line on screen -->
+          <rect x="38" y="110" width="50" height="2" rx="1" fill="#3a3a45"/>
+          <rect id="screen-bar" x="38" y="110" width="9" height="2" rx="1" fill="var(--accent)"/>
+          <!-- flash overlay -->
+          <rect id="screen-flash" x="33" y="77" width="62" height="40" rx="3" fill="var(--accent)" opacity="0"/>
         </g>
-        <circle cx="164" cy="122" r="7" fill="var(--bot-body)"/>
-        <!-- head -->
+        <!-- deck on the desk -->
+        <path d="M32 122 L96 122 L102 130 L26 130 Z" fill="var(--lap-deck)"/>
+        <g fill="var(--lap-key)">
+          <rect x="38" y="123.5" width="7" height="2.6" rx="1.3"/>
+          <rect x="48" y="123.5" width="7" height="2.6" rx="1.3"/>
+          <rect x="58" y="123.5" width="7" height="2.6" rx="1.3"/>
+          <rect x="68" y="123.5" width="7" height="2.6" rx="1.3"/>
+          <rect x="78" y="123.5" width="7" height="2.6" rx="1.3"/>
+          <rect x="35" y="127" width="7" height="2.6" rx="1.3"/>
+          <rect x="45" y="127" width="7" height="2.6" rx="1.3"/>
+          <rect x="55" y="127" width="7" height="2.6" rx="1.3"/>
+          <rect x="65" y="127" width="7" height="2.6" rx="1.3"/>
+          <rect x="75" y="127" width="7" height="2.6" rx="1.3"/>
+        </g>
+        <!-- the NEXT key -->
+        <rect id="next-key" x="90" y="123" width="13" height="7" rx="3" fill="var(--accent)"/>
+        <circle id="tap-ripple" cx="96.5" cy="126.5" r="7" stroke="var(--accent)" stroke-width="2" fill="none" opacity="0"/>
+      </g>
+
+      <!-- office chair -->
+      <g id="chair">
+        <circle cx="186" cy="175" r="4" fill="var(--bot-limb)"/>
+        <circle cx="226" cy="175" r="4" fill="var(--bot-limb)"/>
+        <rect x="178" y="167" width="56" height="5" rx="2.5" fill="var(--bot-limb)"/>
+        <rect x="203" y="153" width="7" height="15" rx="3" fill="var(--bot-limb)"/>
+        <rect x="234" y="96" width="11" height="54" rx="5" fill="var(--lap-deck)"/>
+        <rect x="172" y="142" width="70" height="11" rx="5" fill="var(--lap-deck)"/>
+      </g>
+
+      <!-- bored robot, slouched on the chair -->
+      <g id="bot">
+        <!-- torso -->
+        <rect x="180" y="100" width="56" height="48" rx="14" fill="var(--bot-body)"/>
+        <circle id="chest" cx="208" cy="126" r="5" fill="var(--accent)" opacity="0.85"/>
+        <!-- back leg (static) -->
+        <g fill="var(--bot-limb)" opacity="0.55">
+          <rect x="170" y="136" width="28" height="10" rx="5"/>
+          <rect x="172" y="144" width="8" height="22" rx="4"/>
+          <rect x="163" y="163" width="19" height="7" rx="3.5"/>
+        </g>
+        <!-- front leg, foot dangles and swings -->
+        <rect x="162" y="138" width="34" height="11" rx="5.5" fill="var(--bot-limb)"/>
+        <g id="leg-swing" fill="var(--bot-limb)">
+          <rect x="165" y="144" width="9" height="24" rx="4.5"/>
+          <rect x="156" y="165" width="21" height="8" rx="4"/>
+        </g>
+        <!-- left arm: lazily parked next to the laptop -->
+        <path d="M184 112 C 168 120, 148 127, 124 130" stroke="var(--bot-limb)" stroke-width="9" stroke-linecap="round"/>
+        <circle cx="184" cy="112" r="6.5" fill="var(--bot-body)"/>
+        <!-- hand: only the finger bothers to move. pivot at (120,130) -->
+        <g id="hand">
+          <circle cx="118" cy="130" r="6" fill="var(--bot-limb)"/>
+          <path d="M118 130 L 101 124.5" stroke="var(--bot-limb)" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <!-- neck -->
+        <rect x="202" y="92" width="12" height="10" rx="3" fill="var(--bot-limb)"/>
+        <!-- head, tilted onto its fist -->
         <g id="head">
-          <rect x="186" y="102" width="12" height="10" rx="3" fill="var(--bot-limb)"/>
-          <rect x="190" y="44" width="4" height="16" rx="2" fill="var(--bot-limb)"/>
-          <circle id="antenna-tip" cx="192" cy="41" r="4.5" fill="var(--accent)"/>
-          <rect x="156" y="58" width="72" height="48" rx="16" fill="var(--bot-body)"/>
-          <rect x="150" y="72" width="9" height="18" rx="4" fill="var(--bot-limb)"/>
-          <rect x="225" y="72" width="9" height="18" rx="4" fill="var(--bot-limb)"/>
-          <rect x="166" y="68" width="52" height="28" rx="13" fill="var(--bot-visor)"/>
+          <path d="M206 48 C 206 40, 214 37, 219 42" stroke="var(--bot-limb)" stroke-width="3.5" stroke-linecap="round"/>
+          <circle id="antenna-tip" cx="220" cy="43" r="4" fill="var(--accent)"/>
+          <rect x="174" y="48" width="66" height="46" rx="15" fill="var(--bot-body)"/>
+          <rect x="168" y="62" width="8" height="16" rx="4" fill="var(--bot-limb)"/>
+          <rect x="238" y="62" width="8" height="16" rx="4" fill="var(--bot-limb)"/>
+          <rect x="182" y="58" width="48" height="27" rx="12" fill="var(--bot-visor)"/>
           <g id="eyes">
-            <rect x="179" y="75" width="7" height="13" rx="3.5" fill="var(--bot-eye)"/>
-            <rect x="197" y="75" width="7" height="13" rx="3.5" fill="var(--bot-eye)"/>
+            <rect x="193" y="70" width="7" height="9" rx="3.5" fill="var(--bot-eye)"/>
+            <rect x="209" y="70" width="7" height="9" rx="3.5" fill="var(--bot-eye)"/>
           </g>
         </g>
+        <!-- right arm propping up the head -->
+        <path d="M244 114 L 241 96" stroke="var(--bot-limb)" stroke-width="8" stroke-linecap="round"/>
+        <circle cx="240" cy="93" r="7" fill="var(--bot-limb)"/>
       </g>
     </svg>
   </div>
@@ -1269,9 +1336,9 @@
         void presenter.offsetWidth; /* restart animation */
         presenter.classList.add('pressing');
         clearTimeout(swapTimer);
-        swapTimer = setTimeout(function () { setScreen(n); }, 330);
+        swapTimer = setTimeout(function () { setScreen(n); }, 430);
         clearTimeout(pressTimer);
-        pressTimer = setTimeout(function () { presenter.classList.remove('pressing'); }, 850);
+        pressTimer = setTimeout(function () { presenter.classList.remove('pressing'); }, 1000);
       }
 
       function activate(i, animate) {

@@ -12,11 +12,9 @@
   const themeToggle = document.getElementById('theme-toggle');
   const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
 
-  // Get saved theme or use system preference
+  // Default is LIGHT; dark only when the visitor chose it
   function getPreferredTheme() {
-    const saved = localStorage.getItem('portfolio-theme');
-    if (saved) return saved;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return localStorage.getItem('portfolio-theme') === 'dark' ? 'dark' : 'light';
   }
 
   // Apply theme
