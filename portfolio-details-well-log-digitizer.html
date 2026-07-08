@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Well-D · Well Log Digitizer | Gerald Plakasa</title>
+  <meta name="description" content="Well-D (Well Log Digitizer): converts scanned paper well logs into digital LAS 2.0 with human-in-the-loop QC. Computer vision + OCR + U-Net, fully on-prem for Pertamina EP subsurface archives.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/portfolio-detail.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="nav-back">
+    <div class="container">
+      <a href="index.html" class="back-link"><i class="bi bi-arrow-left"></i> Back to Portfolio</a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <i class="bi bi-moon-fill"></i>
+        </button>
+        <a href="index.html" class="logo">GP</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <span class="project-category"><i class="bi bi-graph-up"></i> Computer Vision / ML</span>
+        <h1 class="project-title">Well-D</h1>
+        <p class="project-tagline">Well Log Digitizer—mengubah scan kertas well log lawas (TIFF/PDF/PNG/JPG) jadi data digital LAS 2.0 yang bisa dipakai. Assisted digitization dengan human-in-the-loop QC, jalan sepenuhnya on-prem untuk arsip subsurface Pertamina EP.</p>
+        <div class="project-meta">
+          <span><i class="bi bi-calendar3"></i> 2026</span>
+          <span><i class="bi bi-buildings"></i> Pertamina EP · WOPDM / SSDP</span>
+          <span><i class="bi bi-shield-lock"></i> On-Prem / Internal</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-section">
+      <div class="container">
+        <div class="impact-grid">
+          <div class="impact-card">
+            <div class="impact-number">16/16</div>
+            <div class="impact-label">Ground-Truth Scans Digitized</div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-number">7</div>
+            <div class="impact-label">Pipeline Stages</div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-number">100%</div>
+            <div class="impact-label">Local / On-Prem</div>
+          </div>
+          <div class="impact-card">
+            <div class="impact-number">LAS 2.0</div>
+            <div class="impact-label">Digital Output</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">The Problem</div>
+          <div class="section-content">
+            <h3>Ribuan Well Log Masih di Kertas</h3>
+            <p>Arsip well log lapangan legacy Sumatera Selatan tersimpan sebagai scan kertas—TIFF, PDF, JPG lawas, banyak yang faint, miring, dan penuh noise gridline. Data ini nyaris tidak bisa dipakai untuk analisis modern selama masih berupa gambar.</p>
+            <div class="highlight-box">
+              <strong>Inti masalahnya:</strong> tracing kurva yang gampang itu bukan bottleneck-nya. Yang susah adalah kalibrasi (depth + value axis) dan kurva-kurva sulit—salah kalibrasi bikin tracing sempurna jadi tidak berguna.
+            </div>
+            <p>Karena ini data subsurface yang sensitif, semua harus jalan lokal/on-prem. Tidak boleh ada yang lewat public API.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">What It Does</div>
+          <div class="section-content">
+            <h3>Dari Raster ke LAS</h3>
+            <p>Well-D mengambil raster scan dan menghasilkan file LAS 2.0 (plus CSV/Excel) lengkap dengan metadata provenance—dengan manusia tetap di loop untuk QC.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Multi-format ingest:</strong> TIFF/PDF/PNG/JPG, termasuk multipage TIFF dan scan setinggi 83.000 baris (satu file 293 MB), auto deskew + denoise + CLAHE</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Kalibrasi axis:</strong> depth dan value axis (linear <em>atau</em> logaritmik) dikalibrasi eksplisit sebelum nilai dipercaya</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Curve tracing:</strong> ekstraksi kurva per-track dengan overlay balik ke raster asli untuk verifikasi visual</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Confidence-aware QC:</strong> interval broken/overlap/off-scale ditandai, tidak pernah diam-diam di-interpolasi</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Error reporting:</strong> menampilkan NRMSE + R2 vs ground truth—shape NRMSE untuk besar error, R2 untuk apakah pola wiggle benar-benar cocok</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Export lengkap:</strong> LAS 2.0 via lasio, CSV, Excel, plus sidecar metadata</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">Architecture</div>
+          <div class="section-content">
+            <h3>Pipeline Linear, Tiap Stage Independen</h3>
+            <p>Dirancang sebagai pipeline stage yang independen dan bisa dites terpisah, supaya implementasi classical bisa di-swap ke ML tanpa membongkar ulang pipeline.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-1-circle-fill"></i><span><strong>Ingest:</strong> load PDF→image ≥300 DPI, split multipage, deskew, denoise, CLAHE</span></li>
+              <li><i class="bi bi-2-circle-fill"></i><span><strong>Header OCR:</strong> Tesseract / EasyOCR / PaddleOCR baca well info dan scale</span></li>
+              <li><i class="bi bi-3-circle-fill"></i><span><strong>Grid &amp; kalibrasi:</strong> deteksi gridline, bangun map depth(pixel_y) + value(pixel_x, track)</span></li>
+              <li><i class="bi bi-4-circle-fill"></i><span><strong>Extract:</strong> classical (threshold + skeletonize + connected components), ML menyusul</span></li>
+              <li><i class="bi bi-5-circle-fill"></i><span><strong>Vectorize:</strong> mask → (depth, value), resample ke depth step reguler, flag gap</span></li>
+              <li><i class="bi bi-6-circle-fill"></i><span><strong>QC:</strong> overlay kurva ke raster, scoring confidence per-interval</span></li>
+              <li><i class="bi bi-7-circle-fill"></i><span><strong>Export:</strong> LAS 2.0 + CSV/Excel + metadata provenance</span></li>
+            </ul>
+            <p>Backend <strong>FastAPI</strong>, frontend <strong>React web app</strong>. Data contract antar-stage pakai pydantic (CurveSpec, TrackSpec, LogHeader, DigitizedCurve); CLI pakai typer. Dua mode: <strong>Full-auto</strong> (satu klik) dan <strong>Assistant</strong> (user isi well info + depth range).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">Design Principles</div>
+          <div class="section-content">
+            <h3>Aturan yang Tidak Boleh Dilanggar</h3>
+            <p>Lima prinsip yang mengatur setiap modul—ini requirement, bukan marketing.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Human-in-the-loop:</strong> setiap kurva hasil tracing wajib bisa di-overlay ke raster asli dan bisa diedit manual</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Calibration-first:</strong> depth dan value axis dikalibrasi dulu sebelum ada nilai yang dipercaya</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Confidence-aware:</strong> interval low-confidence ditandai, tidak pernah diam-diam diisi</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>No silent automation:</strong> hasil tidak pernah disajikan sebagai pasti; error vs ground truth selalu ditampilkan</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Per-track processing:</strong> diproses track-by-track—satu gambar bukan satu kurva</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">Engineering Highlights</div>
+          <div class="section-content">
+            <h3>Bagian yang Bikin Ini Susah</h3>
+            <p>Beberapa masalah yang diselesaikan lewat iterasi panjang dan divalidasi terhadap 16 pasang ground-truth.</p>
+            <ul class="feature-list">
+              <li><i class="bi bi-stars"></i><span><strong>Anchor-free ink-Viterbi tracer:</strong> shortest-path Viterbi (satu x per baris, penalti smoothness) di atas cost map darkness ternormalisasi—tembus GR NRMSE ~0.07 tanpa klik, tanpa model, mematahkan asumsi "classical auto sudah mentok"</span></li>
+              <li><i class="bi bi-stars"></i><span><strong>RANSAC depth calibration:</strong> depth di-fit dari label OCR pakai RANSAC, jadi satu misread tidak merusak kalibrasi seluruh log</span></li>
+              <li><i class="bi bi-stars"></i><span><strong>Log-axis value calibration:</strong> track resistivity hampir selalu log; salah handle ini fatal, jadi log + per-decade wrap diarsitek dari awal</span></li>
+              <li><i class="bi bi-stars"></i><span><strong>U-Net fine-tuning pipeline:</strong> Dice+BCE, checkpoint safetensors, jalur menuju ekstraksi tanpa manusia (SAM juga dieksplor, diukur jujur)</span></li>
+              <li><i class="bi bi-stars"></i><span><strong>Diagnosa jujur:</strong> shape NRMSE bisa menyembunyikan blind spot pada kurva low-variance—dilaporkan bareng R2 supaya ketahuan mana yang benar-benar cocok vs cuma "aman"</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="section-label">Tech Stack</div>
+          <div class="section-content">
+            <div class="tech-stack">
+              <span class="tech-tag"><i class="bi bi-filetype-py"></i> Python</span>
+              <span class="tech-tag"><i class="bi bi-eye"></i> OpenCV</span>
+              <span class="tech-tag"><i class="bi bi-fonts"></i> PaddleOCR / EasyOCR / Tesseract</span>
+              <span class="tech-tag"><i class="bi bi-diagram-3"></i> U-Net / SAM</span>
+              <span class="tech-tag"><i class="bi bi-lightning-charge"></i> FastAPI</span>
+              <span class="tech-tag"><i class="bi bi-braces"></i> React</span>
+              <span class="tech-tag"><i class="bi bi-boxes"></i> pydantic</span>
+              <span class="tech-tag"><i class="bi bi-terminal"></i> typer CLI</span>
+              <span class="tech-tag"><i class="bi bi-file-earmark-bar-graph"></i> LAS 2.0 / lasio</span>
+              <span class="tech-tag"><i class="bi bi-graph-up"></i> NumPy / SciPy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-nav">
+      <div class="container">
+        <div class="nav-grid">
+          <a href="portfolio-details-Paimon-Chatbot.html" class="nav-card">
+            <span class="nav-direction">← Previous Project</span>
+            <span class="nav-title">Paimon Chatbot</span>
+          </a>
+          <a href="portfolio-details-bobi-ai-agent.html" class="nav-card next">
+            <span class="nav-direction">Next Project →</span>
+            <span class="nav-title">Bobi AI Agent</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container"><p>© 2026 Gerald Plakasa. Built with passion.</p></div></footer>
+
+  <script src="assets/js/portfolio-detail.js"></script>
+</body>
+</html>
