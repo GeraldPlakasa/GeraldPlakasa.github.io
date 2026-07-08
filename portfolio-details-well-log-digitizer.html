@@ -29,7 +29,7 @@
       <div class="container">
         <span class="project-category"><i class="bi bi-graph-up"></i> Computer Vision / ML</span>
         <h1 class="project-title">Well-D</h1>
-        <p class="project-tagline">Well Log Digitizer—mengubah scan kertas well log lawas (TIFF/PDF/PNG/JPG) jadi data digital LAS 2.0 yang bisa dipakai. Assisted digitization dengan human-in-the-loop QC, jalan sepenuhnya on-prem untuk arsip subsurface Pertamina EP.</p>
+        <p class="project-tagline">Well Log Digitizer, mengubah scan kertas well log lawas (TIFF/PDF/PNG/JPG) jadi data digital LAS 2.0 yang bisa dipakai. Assisted digitization dengan human-in-the-loop QC, jalan sepenuhnya on-prem untuk arsip subsurface Pertamina EP.</p>
         <div class="project-meta">
           <span><i class="bi bi-calendar3"></i> 2026</span>
           <span><i class="bi bi-buildings"></i> Pertamina EP · WOPDM / SSDP</span>
@@ -67,9 +67,9 @@
           <div class="section-label">The Problem</div>
           <div class="section-content">
             <h3>Ribuan Well Log Masih di Kertas</h3>
-            <p>Arsip well log lapangan legacy Sumatera Selatan tersimpan sebagai scan kertas—TIFF, PDF, JPG lawas, banyak yang faint, miring, dan penuh noise gridline. Data ini nyaris tidak bisa dipakai untuk analisis modern selama masih berupa gambar.</p>
+            <p>Arsip well log lapangan legacy Sumatera Selatan tersimpan sebagai scan kertas (TIFF, PDF, JPG lawas), banyak yang faint, miring, dan penuh noise gridline. Data ini nyaris tidak bisa dipakai untuk analisis modern selama masih berupa gambar.</p>
             <div class="highlight-box">
-              <strong>Inti masalahnya:</strong> tracing kurva yang gampang itu bukan bottleneck-nya. Yang susah adalah kalibrasi (depth + value axis) dan kurva-kurva sulit—salah kalibrasi bikin tracing sempurna jadi tidak berguna.
+              <strong>Inti masalahnya:</strong> tracing kurva yang gampang itu bukan bottleneck-nya. Yang susah adalah kalibrasi (depth + value axis) dan kurva-kurva sulit, salah kalibrasi bikin tracing sempurna jadi tidak berguna.
             </div>
             <p>Karena ini data subsurface yang sensitif, semua harus jalan lokal/on-prem. Tidak boleh ada yang lewat public API.</p>
           </div>
@@ -83,13 +83,13 @@
           <div class="section-label">What It Does</div>
           <div class="section-content">
             <h3>Dari Raster ke LAS</h3>
-            <p>Well-D mengambil raster scan dan menghasilkan file LAS 2.0 (plus CSV/Excel) lengkap dengan metadata provenance—dengan manusia tetap di loop untuk QC.</p>
+            <p>Well-D mengambil raster scan dan menghasilkan file LAS 2.0 (plus CSV/Excel) lengkap dengan metadata provenance, dengan manusia tetap di loop untuk QC.</p>
             <ul class="feature-list">
               <li><i class="bi bi-check-circle-fill"></i><span><strong>Multi-format ingest:</strong> TIFF/PDF/PNG/JPG, termasuk multipage TIFF dan scan setinggi 83.000 baris (satu file 293 MB), auto deskew + denoise + CLAHE</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span><strong>Kalibrasi axis:</strong> depth dan value axis (linear <em>atau</em> logaritmik) dikalibrasi eksplisit sebelum nilai dipercaya</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span><strong>Curve tracing:</strong> ekstraksi kurva per-track dengan overlay balik ke raster asli untuk verifikasi visual</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span><strong>Confidence-aware QC:</strong> interval broken/overlap/off-scale ditandai, tidak pernah diam-diam di-interpolasi</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Error reporting:</strong> menampilkan NRMSE + R2 vs ground truth—shape NRMSE untuk besar error, R2 untuk apakah pola wiggle benar-benar cocok</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Error reporting:</strong> menampilkan NRMSE + R2 vs ground truth, shape NRMSE untuk besar error, R2 untuk apakah pola wiggle benar-benar cocok</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span><strong>Export lengkap:</strong> LAS 2.0 via lasio, CSV, Excel, plus sidecar metadata</span></li>
             </ul>
           </div>
@@ -125,13 +125,13 @@
           <div class="section-label">Design Principles</div>
           <div class="section-content">
             <h3>Aturan yang Tidak Boleh Dilanggar</h3>
-            <p>Lima prinsip yang mengatur setiap modul—ini requirement, bukan marketing.</p>
+            <p>Lima prinsip yang mengatur setiap modul, ini requirement, bukan marketing.</p>
             <ul class="feature-list">
               <li><i class="bi bi-check-circle-fill"></i><span><strong>Human-in-the-loop:</strong> setiap kurva hasil tracing wajib bisa di-overlay ke raster asli dan bisa diedit manual</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span><strong>Calibration-first:</strong> depth dan value axis dikalibrasi dulu sebelum ada nilai yang dipercaya</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span><strong>Confidence-aware:</strong> interval low-confidence ditandai, tidak pernah diam-diam diisi</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span><strong>No silent automation:</strong> hasil tidak pernah disajikan sebagai pasti; error vs ground truth selalu ditampilkan</span></li>
-              <li><i class="bi bi-check-circle-fill"></i><span><strong>Per-track processing:</strong> diproses track-by-track—satu gambar bukan satu kurva</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span><strong>Per-track processing:</strong> diproses track-by-track, satu gambar bukan satu kurva</span></li>
             </ul>
           </div>
         </div>
@@ -146,11 +146,11 @@
             <h3>Bagian yang Bikin Ini Susah</h3>
             <p>Beberapa masalah yang diselesaikan lewat iterasi panjang dan divalidasi terhadap 16 pasang ground-truth.</p>
             <ul class="feature-list">
-              <li><i class="bi bi-stars"></i><span><strong>Anchor-free ink-Viterbi tracer:</strong> shortest-path Viterbi (satu x per baris, penalti smoothness) di atas cost map darkness ternormalisasi—tembus GR NRMSE ~0.07 tanpa klik, tanpa model, mematahkan asumsi "classical auto sudah mentok"</span></li>
+              <li><i class="bi bi-stars"></i><span><strong>Anchor-free ink-Viterbi tracer:</strong> shortest-path Viterbi (satu x per baris, penalti smoothness) di atas cost map darkness ternormalisasi, tembus GR NRMSE ~0.07 tanpa klik, tanpa model, mematahkan asumsi "classical auto sudah mentok"</span></li>
               <li><i class="bi bi-stars"></i><span><strong>RANSAC depth calibration:</strong> depth di-fit dari label OCR pakai RANSAC, jadi satu misread tidak merusak kalibrasi seluruh log</span></li>
               <li><i class="bi bi-stars"></i><span><strong>Log-axis value calibration:</strong> track resistivity hampir selalu log; salah handle ini fatal, jadi log + per-decade wrap diarsitek dari awal</span></li>
               <li><i class="bi bi-stars"></i><span><strong>U-Net fine-tuning pipeline:</strong> Dice+BCE, checkpoint safetensors, jalur menuju ekstraksi tanpa manusia (SAM juga dieksplor, diukur jujur)</span></li>
-              <li><i class="bi bi-stars"></i><span><strong>Diagnosa jujur:</strong> shape NRMSE bisa menyembunyikan blind spot pada kurva low-variance—dilaporkan bareng R2 supaya ketahuan mana yang benar-benar cocok vs cuma "aman"</span></li>
+              <li><i class="bi bi-stars"></i><span><strong>Diagnosa jujur:</strong> shape NRMSE bisa menyembunyikan blind spot pada kurva low-variance, dilaporkan bareng R2 supaya ketahuan mana yang benar-benar cocok vs cuma "aman"</span></li>
             </ul>
           </div>
         </div>
